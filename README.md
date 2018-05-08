@@ -11,7 +11,18 @@ The biggest trouble is neural network, that had been used for hands detection. I
 cause of big cpu and gpu usage.
 Another problem is that hands detection on mobile with help of yolo working not good(you cant test it yourself)
 
-## Ml model for app
+## Requirements
++ You need device with iOS 11 and A9> CPU
++ IPhone 8,8+,X recommended
+
+## ML model for app
 You can train yolo model yourself and use it in app or use my model.
+
+## Instruments 
++ ARKIT
++ Coreml
++ Darknet Yolo
++ Darkflow(convert from darknet format to .pb format)
++ cormeltools(python 2.7 or 3.5)
 
 Thank your.
