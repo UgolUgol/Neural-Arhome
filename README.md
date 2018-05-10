@@ -25,4 +25,4 @@ You can train yolo model yourself and use it in app or use my model.
 + Darkflow(convert from darknet format to .pb format)
 + cormeltools(python 2.7 or 3.5)
 
-Thank your.
+Thank you!!!.
