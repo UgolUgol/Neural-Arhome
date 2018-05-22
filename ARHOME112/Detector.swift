@@ -56,17 +56,19 @@ class Detector {
         {
             let cur_pos = predictions[0].hand.xc
             let dh = self.hand_pos - cur_pos
-            print(dh)
             if(self.hand_pos == 0 || dh == 0){
                 self.rotate_scene = false
+                print("none")
             }
             else if(dh < 0){
                 self.rotate_scene = true
                 self.rotation_dir = -1
+                print("left")
             }
             else if(dh > 0){
                 self.rotate_scene = true
                 self.rotation_dir = 1
+                print("right")
             }
             
             self.hand_pos = cur_pos

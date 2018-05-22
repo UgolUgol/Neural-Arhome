@@ -15,6 +15,7 @@ class ViewController: UIViewController {
 
     @IBOutlet var sceneView: ARSCNView!
     var isAddingPlane: Bool = true
+    var isRotateSystem: Bool = true
     var solarSystemVisible = false
     var detector: Detector = Detector()
         
@@ -67,6 +68,13 @@ class ViewController: UIViewController {
         self.solarSystemVisible = true
     }
     
+    @IBAction func stopRotate(_ sender: Any) {
+        self.isRotateSystem = false
+    }
+    
+    @IBAction func runRotate(_ sender: Any) {
+        self.isRotateSystem = true
+    }
     
     func addObjOnTap(){
         let tap = UITapGestureRecognizer(target: self,
@@ -99,10 +107,20 @@ extension ViewController: ARSCNViewDelegate{
             let scene = self.sceneView.scene as! SolarSystem
             self.detector.detect(frame: self.sceneView.session.currentFrame!)
             
-            scene.rotateSun(rotate: detector.rotate_scene, direction: detector.rotation_dir)
-            scene.makeRotationCicle()
-            scene.addTrajectoryPoints()
-            detector.clear()
+            // rotate sun if we pause scene and
+            // if we have found hand moving
+            if(!self.isRotateSystem){
+                scene.rotateSun(rotate: detector.rotate_scene, direction: detector.rotation_dir)
+                
+                // set rotation status of sun to false
+                detector.clear()
+            }
+            
+            // check if we must make one step of planets rotation
+            if(self.isRotateSystem){
+                scene.makeRotationCicle()
+                scene.addTrajectoryPoints()
+            }
         }
     }
     
