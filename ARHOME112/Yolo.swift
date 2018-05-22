@@ -18,8 +18,8 @@ class Yolo {
     public static let inputHeight = 416
     
     public struct Object {
-        let xc: Float
-        let yc: Float
+        let xc: Int
+        let yc: Int
     }
     
     public struct Prediction {
@@ -54,11 +54,11 @@ class Yolo {
                     let tc = features[[channel + 4, cx, cy] as [NSNumber]].floatValue
                     
                     // x and y - centers of bounding boxes
-                    let xc = (Float(cx) + tx)
-                    let yc = (Float(cy) + ty)
+                    let xc = (Float(cx) + sigmoid(tx))
+                    let yc = (Float(cy) + sigmoid(ty))
                     let x = xc * blockSize
                     let y = yc * blockSize
-                    let hand = Object(xc: xc, yc: yc)
+                    let hand = Object(xc: cx, yc: cy)
                     
                     // transforming width and height to original sizes
                     let w = exp(tw) * anchors[2*b] * blockSize

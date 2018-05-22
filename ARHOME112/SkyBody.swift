@@ -115,14 +115,14 @@ class SkyBody: SCNNode{
     
     
     // rotation around self axis
-    func selfAxisRotationStep(){
+    func selfAxisRotationStep(direction: Float = 1){
         
         // get current planet orientation
         let orientation = self.orientation
         var glQuaternion = GLKQuaternionMake(orientation.x, orientation.y, orientation.z, orientation.w)
         
         // create quaternion with rotation angle
-        let multiplier = GLKQuaternionMakeWithAngleAndAxis(self.selfAnglePerTime!, self.selfAxis.x, self.selfAxis.y, self.selfAxis.z)
+        let multiplier = GLKQuaternionMakeWithAngleAndAxis(direction * self.selfAnglePerTime!, self.selfAxis.x, self.selfAxis.y, self.selfAxis.z)
         glQuaternion = GLKQuaternionMultiply(glQuaternion, multiplier)
         
         // set new orientation to body

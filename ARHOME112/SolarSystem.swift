@@ -109,10 +109,10 @@ class SolarSystem: SCNScene{
     
     
     // sun rotation
-    func rotateSun(rotate: Bool) {
+    func rotateSun(rotate: Bool, direction: Int) {
         if rotate{
-            self.sun.selfAxisRotationStep()
-            self.sun.selfAxisRotationStep()
+            self.sun.selfAxisRotationStep(direction: Float(direction))
+            self.sun.selfAxisRotationStep(direction: Float(direction))
         }
     }
     

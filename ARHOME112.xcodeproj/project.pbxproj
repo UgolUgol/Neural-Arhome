@@ -20,6 +20,7 @@
 		FF52B27F20320EF800027255 /* SkyBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF52B27E20320EF800027255 /* SkyBody.swift */; };
 		FF5CC7CC2085F49500571AB3 /* Yolo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5CC7CB2085F49500571AB3 /* Yolo.swift */; };
 		FF6495AF208C810B00A6D5C3 /* yolo23.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = FF6495AE208C810A00A6D5C3 /* yolo23.mlmodel */; };
+		FF71FE0820B426040014D772 /* Detector.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF71FE0720B426040014D772 /* Detector.swift */; };
 		FF8E094420A068E1009ACE3A /* yolo24.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = FF8E094320A068E0009ACE3A /* yolo24.mlmodel */; };
 		FFFC832F2030702100D73F64 /* ObjModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFC832E2030702100D73F64 /* ObjModel.swift */; };
 /* End PBXBuildFile section */
@@ -40,6 +41,7 @@
 		FF52B27E20320EF800027255 /* SkyBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyBody.swift; sourceTree = "<group>"; };
 		FF5CC7CB2085F49500571AB3 /* Yolo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Yolo.swift; sourceTree = "<group>"; };
 		FF6495AE208C810A00A6D5C3 /* yolo23.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = yolo23.mlmodel; sourceTree = "<group>"; };
+		FF71FE0720B426040014D772 /* Detector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detector.swift; sourceTree = "<group>"; };
 		FF8E094320A068E0009ACE3A /* yolo24.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = yolo24.mlmodel; sourceTree = "<group>"; };
 		FFFC832E2030702100D73F64 /* ObjModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -77,6 +79,7 @@
 				FF0AC96520319C7900039672 /* 3DObjects */,
 				FF1AB5DC202C457E00A1E761 /* AppDelegate.swift */,
 				FF1AB5DE202C457E00A1E761 /* ViewController.swift */,
+				FF71FE0720B426040014D772 /* Detector.swift */,
 				FF5CC7CB2085F49500571AB3 /* Yolo.swift */,
 				FF52B27E20320EF800027255 /* SkyBody.swift */,
 				FF4ACD662032EF61009A04A4 /* SolarSystem.swift */,
@@ -178,6 +181,7 @@
 				FF4D6675202DAB8800470CFE /* VirtualPlane.swift in Sources */,
 				FF52B27F20320EF800027255 /* SkyBody.swift in Sources */,
 				FF8E094420A068E1009ACE3A /* yolo24.mlmodel in Sources */,
+				FF71FE0820B426040014D772 /* Detector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,41 +11,13 @@ import ARKit
 import SceneKit
 import SceneKit.ModelIO
 
-import CoreML
-import Vision
-import Accelerate
-
 class ViewController: UIViewController {
 
     @IBOutlet var sceneView: ARSCNView!
     var isAddingPlane: Bool = true
     var solarSystemVisible = false
-    var hand_pos: Float = 0
-    var dhand: Float = 0.2
-    var rotate_scene: Bool = false
-    let yolo = Yolo()
-    
-    
-    // pixel buffer for Vision request
-    private var currentBuffer: CVPixelBuffer?
-    
-    // queue for dispatching vision detection request
-    private let visionQueue = DispatchQueue(label: "com.example.apple-samplecode.ARKitVision.serialVisionQueue")
-    
-    // Vision Request
-    private lazy var detectionRequest: VNCoreMLRequest = {
-        do{
-            let model = try VNCoreMLModel(for: yolo.model.model)
-            let request = VNCoreMLRequest(model: model, completionHandler: visionRequestDidComplete)
-            
-            request.imageCropAndScaleOption = .scaleFill
-            return request
-        } catch {
-            fatalError("Failed to load Vision Model: \(error)")
-        }
-    }()
-    
-    
+    var detector: Detector = Detector()
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         addObjOnTap()
@@ -102,37 +74,7 @@ class ViewController: UIViewController {
         sceneView.addGestureRecognizer(tap)
         
     }
-    
-    // vision request completionHandler
-    func visionRequestDidComplete(request: VNRequest, error: Error?){
-        DispatchQueue.main.async {
-            if let observations = request.results as? [VNCoreMLFeatureValueObservation],
-                let features = observations.first?.featureValue.multiArrayValue{
-                let bboxes = self.yolo.computeBBox(features: features)
-                self.show(predictions: bboxes)
-            }
-        }
-
-    }
-    
-    func show(predictions: [Yolo.Prediction]){
-        if(predictions.count > 0)
-        {
-            let hand_pos = predictions[0].hand
-            let new_hand_pos = hand_pos.xc
-            let dh = fabs(new_hand_pos - self.hand_pos)
-            print(dh)
-            if(self.hand_pos == 0 || dh < dhand){
-                self.rotate_scene = false
-            }
-            else {
-                self.rotate_scene = true
-            }
-            
-            self.hand_pos = new_hand_pos
-        }
-    }
-    
+        
 }
 
 extension ViewController: ARSCNViewDelegate{
@@ -155,12 +97,12 @@ extension ViewController: ARSCNViewDelegate{
         
         if(self.solarSystemVisible){
             let scene = self.sceneView.scene as! SolarSystem
-            detector(frame: self.sceneView.session.currentFrame!)
+            self.detector.detect(frame: self.sceneView.session.currentFrame!)
             
-            scene.rotateSun(rotate: self.rotate_scene)
+            scene.rotateSun(rotate: detector.rotate_scene, direction: detector.rotation_dir)
             scene.makeRotationCicle()
             scene.addTrajectoryPoints()
-            self.rotate_scene = false
+            detector.clear()
         }
     }
     
@@ -192,35 +134,6 @@ extension ViewController: ARSCNViewDelegate{
         // update plane
         plane.Update(anchor: planeAnchor)
     }
-    
-    
-    // coreml functions
-    
-    func detector(frame: ARFrame) {
-        guard self.currentBuffer == nil, case .normal = frame.camera.trackingState else{
-            return
-        }
-        
-        self.currentBuffer = frame.capturedImage
-        detectImageObject()
-    }
-    
-    private func detectImageObject(){
-        
-        // orientation of device
-        let orientation = CGImagePropertyOrientation(rawValue: UInt32(UIDevice.current.orientation.rawValue))
-        
-        let request = VNImageRequestHandler(cvPixelBuffer: currentBuffer!, orientation: orientation!)
-        visionQueue.async {
-            do{
-                defer { self.currentBuffer = nil }
-                try request.perform([self.detectionRequest])
-            } catch {
-                print("Error: Vision request failed with error\"\(error)\"")
-            }
-        }
-    }
-    
 
 }
 
