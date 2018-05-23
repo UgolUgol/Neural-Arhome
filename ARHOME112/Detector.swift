@@ -24,7 +24,8 @@ class Detector {
     private var currentBuffer: CVPixelBuffer?
     
     // queue for dispatching vision detection request
-    private let visionQueue = DispatchQueue(label: "com.example.apple-samplecode.ARKitVision.serialVisionQueue")
+    //private let visionQueue = DispatchQueue(label: "com.example.apple-samplecode.ARKitVision.serialVisionQueue")
+    private let visionQueue = DispatchQueue.global(qos: .userInteractive)
     
     // Vision Request
     private lazy var detectionRequest: VNCoreMLRequest = {

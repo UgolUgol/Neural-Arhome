@@ -11,14 +11,16 @@ import ARKit
 import SceneKit
 import SceneKit.ModelIO
 
-class ViewController: UIViewController {
+class ViewController: UIViewController{
 
     @IBOutlet var sceneView: ARSCNView!
     var isAddingPlane: Bool = true
     var isRotateSystem: Bool = true
     var solarSystemVisible = false
+    var isListening = false
     var detector: Detector = Detector()
-        
+    var recognizer: SpeechRecognizer = SpeechRecognizer()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addObjOnTap()
@@ -67,6 +69,8 @@ class ViewController: UIViewController {
         self.isAddingPlane = false
         self.solarSystemVisible = true
     }
+        
+// action functions
     
     @IBAction func stopRotate(_ sender: Any) {
         self.isRotateSystem = false
@@ -74,6 +78,17 @@ class ViewController: UIViewController {
     
     @IBAction func runRotate(_ sender: Any) {
         self.isRotateSystem = true
+    }
+    
+    @IBAction func makeSpeechRequest(_ sender: Any) {
+        DispatchQueue.main.async {
+            if self.recognizer.audioEngine.isRunning{
+                self.recognizer.audioEngine.stop()
+                self.recognizer.recognitionRequest?.endAudio()
+            } else {
+                try! self.recognizer.startRecording()
+            }
+        }
     }
     
     func addObjOnTap(){
@@ -105,11 +120,11 @@ extension ViewController: ARSCNViewDelegate{
         
         if(self.solarSystemVisible){
             let scene = self.sceneView.scene as! SolarSystem
-            self.detector.detect(frame: self.sceneView.session.currentFrame!)
             
             // rotate sun if we pause scene and
             // if we have found hand moving
             if(!self.isRotateSystem){
+                self.detector.detect(frame: self.sceneView.session.currentFrame!)
                 scene.rotateSun(rotate: detector.rotate_scene, direction: detector.rotation_dir)
                 
                 // set rotation status of sun to false
