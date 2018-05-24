@@ -10,6 +10,8 @@ import Foundation
 import SceneKit
 
 class SolarSystem: SCNScene{
+    
+    // solar system parameters
     var sun: SkyBody!
     var sunRadius: Float!
     var planets: Dictionary<String, SkyBody>!
@@ -17,6 +19,10 @@ class SolarSystem: SCNScene{
     var G: Float! = 6.67 * powf(10, -11)    // Gravity constant
     var au: Float! = 6.6846e-12             // how much astronimical units in 1 meter
     var scale: Float! = 1.5e11
+    
+    // GUI on/off parameters
+    var guiOptions: [String:Bool] = ["Name":true]
+    
     
     convenience init(sunPosition posVec: SCNVector3){
         self.init()
@@ -99,11 +105,15 @@ class SolarSystem: SCNScene{
             // set plane material
             self.planets[planetName]!.addMaterial(materialName: material)
             
+            // set gui parameters
+            self.planets[planetName]!.setGuiOptions(options: guiOptions)
+            
             // add plane to solar system
-            self.sun.addChildNode(self.planets[planetName]!)
+            self.sun.body.addChildNode(self.planets[planetName]!)
             
             // add planet orbit to solar system
-            self.sun.addChildNode(self.planets[planetName]!.orbit)
+            self.sun.body.addChildNode(self.planets[planetName]!.orbit)
+            
         }
     }
     
@@ -123,6 +133,9 @@ class SolarSystem: SCNScene{
             // rotate around sun and rotate round self axis
             planet.value.rotationStep(position: planet.value.position, scale: self.scale)
             planet.value.selfAxisRotationStep()
+            
+            // set gui parameters
+            planet.value.setGuiOptions(options: guiOptions)
         }
     }
         
@@ -132,6 +145,10 @@ class SolarSystem: SCNScene{
         for planet in planets{
             planet.value.addTrajectoryPoint(position: planet.value.position)
         }
+    }
+    
+    func updateGuiOptions(key: String){
+        self.guiOptions[key] = !(self.guiOptions[key]!)
     }
     
 }

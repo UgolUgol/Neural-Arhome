@@ -9,11 +9,56 @@
 import Foundation
 import SceneKit
 
+// body parameters
+
+struct BodyParameters{
+    var count: Int
+    var values: Dictionary<String, SCNNode>
+    
+    init(){
+        count = 0
+        self.values = [String:SCNNode]()
+    }
+    
+    mutating func initializate(_count: Int, names: [String]) {
+        self.count = _count
+        for name in names{
+            let par_geom = SCNText(string: "", extrusionDepth: 0.0)
+            par_geom.font = UIFont(name: "Arial", size: 1)
+            self.values[name] = SCNNode(geometry: par_geom)
+            self.values[name]?.scale = SCNVector3(0.02, 0.02, 0.02)
+            
+            let (min, max) = (self.values[name]?.boundingBox)!
+            let dx = Float(min.x - max.x) / 2.0
+            let dy = Float(min.y - max.y) + 0.1
+            self.values[name]?.position = SCNVector3(dx, dy, 0)
+            self.values[name]?.pivot = SCNMatrix4MakeTranslation(-dx, 0, 0)
+
+        }
+    }
+    
+    mutating func setStaticParameters(names: [String:String]){
+        for name in names{
+            var new_geom = self.values[name.key]?.geometry as! SCNText
+            new_geom.string = name.value
+        }
+    }
+}
+
+
+// SKYBODY class
+
 class SkyBody: SCNNode{
+    
+    // numeric parameters
     var mass: Float!
     var speed: Float!
     var angle_speed: Float!
     var velocity: Float!
+    
+    // graphic parameters
+    var parameters: BodyParameters!
+    var body: SCNNode!
     
     var density: Float!
     var temperature: Float!
@@ -26,12 +71,13 @@ class SkyBody: SCNNode{
     
     
     var orbit: Orbit!
-    
     var g: Float!                       // gravity parameter
     var time: Float! = 0.0              // start time in perigelion
     
     var title: String!
     var geom: SCNGeometry!
+    
+    
     
     convenience init(position: SCNVector3, withRad radius: Float,
                      onDispRad drad: Float, withDensity density: Float,
@@ -57,12 +103,44 @@ class SkyBody: SCNNode{
         // create geometry of sphere
         self.geom  = SCNSphere(radius: CGFloat(self.drad))
         
+        // create body of planet
+        self.body = SCNNode(geometry: self.geom)
+        
         // create planet node and set it position
-        self.geometry = self.geom
         self.name = self.title
         
         // set position to skybody in perigelion
         self.position = position
+        
+        // create nodes for parameters visualization
+        self.attachBodyParameters()
+    }
+    
+    // this function add to body graphic
+    // visualization of parameters
+    func attachBodyParameters(){
+        
+        // first attach body
+        self.addChildNode(self.body)
+        
+        // then attach parameters
+        self.parameters = BodyParameters()
+        self.parameters.initializate(_count: 1, names: ["Name", "Speed"])
+        for par in parameters.values{
+            self.addChildNode(par.value)
+        }
+        
+        // set static parameters such as name
+        self.parameters.setStaticParameters(names: ["Name": self.title])
+    }
+    
+    
+    // this function turn on/off
+    // gui elements such as title, speed ...
+    func setGuiOptions(options: [String:Bool]){
+        for option in options {
+            self.parameters.values[option.key]?.isHidden = option.value
+        }
     }
     
     func addMaterial(materialName material: String) {
@@ -110,7 +188,6 @@ class SkyBody: SCNNode{
         
         // move to new position
         self.position = newPosition
-        
     }
     
     
@@ -118,7 +195,7 @@ class SkyBody: SCNNode{
     func selfAxisRotationStep(direction: Float = 1){
         
         // get current planet orientation
-        let orientation = self.orientation
+        let orientation = self.body.orientation
         var glQuaternion = GLKQuaternionMake(orientation.x, orientation.y, orientation.z, orientation.w)
         
         // create quaternion with rotation angle
@@ -126,7 +203,7 @@ class SkyBody: SCNNode{
         glQuaternion = GLKQuaternionMultiply(glQuaternion, multiplier)
         
         // set new orientation to body
-        self.orientation = SCNQuaternion(glQuaternion.x, glQuaternion.y, glQuaternion.z, glQuaternion.w)
+        self.body.orientation = SCNQuaternion(glQuaternion.x, glQuaternion.y, glQuaternion.z, glQuaternion.w)
     }
     
     
@@ -164,7 +241,6 @@ class SkyBody: SCNNode{
         while(fabs(E - En) > eps)
         return E
     }
-    
-    
-    
 }
+
+

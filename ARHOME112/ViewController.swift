@@ -82,13 +82,11 @@ class ViewController: UIViewController{
     
     @IBAction func makeSpeechRequest(_ sender: Any) {
         DispatchQueue.main.async {
-            if self.recognizer.audioEngine.isRunning{
-                self.recognizer.audioEngine.stop()
-                self.recognizer.recognitionRequest?.endAudio()
-            } else {
+            if !self.recognizer.audioEngine.isRunning{
                 try! self.recognizer.startRecording()
             }
         }
+        print(self.recognizer.word)
     }
     
     func addObjOnTap(){
@@ -120,6 +118,9 @@ extension ViewController: ARSCNViewDelegate{
         
         if(self.solarSystemVisible){
             let scene = self.sceneView.scene as! SolarSystem
+            
+            // check user change paramters with voice
+            self.checkVoiceCommand(cur_scene: scene)
             
             // rotate sun if we pause scene and
             // if we have found hand moving
@@ -166,6 +167,18 @@ extension ViewController: ARSCNViewDelegate{
         
         // update plane
         plane.Update(anchor: planeAnchor)
+    }
+    
+    func checkVoiceCommand(cur_scene: SolarSystem){
+        // list of gui parameters
+        let list = ["Name"]
+        
+        if list.contains(self.recognizer.word) {
+            cur_scene.updateGuiOptions(key: self.recognizer.word)
+        }
+        
+        // clear recognizer
+        self.recognizer.clear()
     }
 
 }

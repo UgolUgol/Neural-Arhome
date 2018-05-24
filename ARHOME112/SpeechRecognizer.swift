@@ -19,11 +19,6 @@ class SpeechRecognizer: NSObject, SFSpeechRecognizerDelegate {
     var recognitionTask: SFSpeechRecognitionTask?
     var audioEngine = AVAudioEngine()
     
-    override init(){
-        super.init()
-        speechRecognizer.delegate = self
-    }
-    
     func startRecording() throws {
         
         // Cancel previous task if it's running
@@ -51,10 +46,12 @@ class SpeechRecognizer: NSObject, SFSpeechRecognizerDelegate {
             if let result = result {
                 isFinal = result.isFinal
                 self.word = self.getLastResult(results: result.bestTranscription)
-                print(self.word)
             }
             
-            if error != nil || isFinal {
+            if error != nil || isFinal || self.word.count > 0{
+                self.audioEngine.stop()
+                self.recognitionRequest?.endAudio()
+                
                 self.audioEngine.stop()
                 inputNode.removeTap(onBus: 0)
                 
@@ -86,6 +83,10 @@ class SpeechRecognizer: NSObject, SFSpeechRecognizerDelegate {
         }
         
         return lastString
+    }
+    
+    func clear(){
+        self.word = ""
     }
     
 

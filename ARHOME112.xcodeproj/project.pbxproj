@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		FF0AC96620319C7900039672 /* 3DObjects in Resources */ = {isa = PBXBuildFile; fileRef = FF0AC96520319C7900039672 /* 3DObjects */; };
-		FF196645208B22A1007E3D77 /* yolo21.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = FF196644208B22A1007E3D77 /* yolo21.mlmodel */; };
 		FF1AB5DD202C457E00A1E761 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1AB5DC202C457E00A1E761 /* AppDelegate.swift */; };
 		FF1AB5DF202C457E00A1E761 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1AB5DE202C457E00A1E761 /* ViewController.swift */; };
 		FF1AB5E2202C457E00A1E761 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF1AB5E0202C457E00A1E761 /* Main.storyboard */; };
@@ -19,7 +18,6 @@
 		FF4D6675202DAB8800470CFE /* VirtualPlane.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4D6674202DAB8700470CFE /* VirtualPlane.swift */; };
 		FF52B27F20320EF800027255 /* SkyBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF52B27E20320EF800027255 /* SkyBody.swift */; };
 		FF5CC7CC2085F49500571AB3 /* Yolo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5CC7CB2085F49500571AB3 /* Yolo.swift */; };
-		FF6495AF208C810B00A6D5C3 /* yolo23.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = FF6495AE208C810A00A6D5C3 /* yolo23.mlmodel */; };
 		FF71FE0820B426040014D772 /* Detector.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF71FE0720B426040014D772 /* Detector.swift */; };
 		FF71FE0A20B46B950014D772 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF71FE0920B46B950014D772 /* SpeechRecognizer.swift */; };
 		FF8E094420A068E1009ACE3A /* yolo24.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = FF8E094320A068E0009ACE3A /* yolo24.mlmodel */; };
@@ -28,7 +26,6 @@
 
 /* Begin PBXFileReference section */
 		FF0AC96520319C7900039672 /* 3DObjects */ = {isa = PBXFileReference; lastKnownFileType = folder; path = 3DObjects; sourceTree = "<group>"; };
-		FF196644208B22A1007E3D77 /* yolo21.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = yolo21.mlmodel; sourceTree = "<group>"; };
 		FF1AB5D9202C457E00A1E761 /* ARHOME112.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARHOME112.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF1AB5DC202C457E00A1E761 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FF1AB5DE202C457E00A1E761 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -41,7 +38,6 @@
 		FF4D6674202DAB8700470CFE /* VirtualPlane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualPlane.swift; sourceTree = "<group>"; };
 		FF52B27E20320EF800027255 /* SkyBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyBody.swift; sourceTree = "<group>"; };
 		FF5CC7CB2085F49500571AB3 /* Yolo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Yolo.swift; sourceTree = "<group>"; };
-		FF6495AE208C810A00A6D5C3 /* yolo23.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = yolo23.mlmodel; sourceTree = "<group>"; };
 		FF71FE0720B426040014D772 /* Detector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detector.swift; sourceTree = "<group>"; };
 		FF71FE0920B46B950014D772 /* SpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
 		FF8E094320A068E0009ACE3A /* yolo24.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = yolo24.mlmodel; sourceTree = "<group>"; };
@@ -87,8 +83,6 @@
 				FF52B27E20320EF800027255 /* SkyBody.swift */,
 				FF4ACD662032EF61009A04A4 /* SolarSystem.swift */,
 				FF4484AB203457F000878108 /* Orbit.swift */,
-				FF6495AE208C810A00A6D5C3 /* yolo23.mlmodel */,
-				FF196644208B22A1007E3D77 /* yolo21.mlmodel */,
 				FF8E094320A068E0009ACE3A /* yolo24.mlmodel */,
 				FF4D6674202DAB8700470CFE /* VirtualPlane.swift */,
 				FFFC832E2030702100D73F64 /* ObjModel.swift */,
@@ -177,8 +171,6 @@
 				FF5CC7CC2085F49500571AB3 /* Yolo.swift in Sources */,
 				FFFC832F2030702100D73F64 /* ObjModel.swift in Sources */,
 				FF4484AC203457F000878108 /* Orbit.swift in Sources */,
-				FF196645208B22A1007E3D77 /* yolo21.mlmodel in Sources */,
-				FF6495AF208C810B00A6D5C3 /* yolo23.mlmodel in Sources */,
 				FF4ACD672032EF61009A04A4 /* SolarSystem.swift in Sources */,
 				FF1AB5DD202C457E00A1E761 /* AppDelegate.swift in Sources */,
 				FF4D6675202DAB8800470CFE /* VirtualPlane.swift in Sources */,
