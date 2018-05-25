@@ -86,7 +86,6 @@ class ViewController: UIViewController{
                 try! self.recognizer.startRecording()
             }
         }
-        print(self.recognizer.word)
     }
     
     func addObjOnTap(){
@@ -120,7 +119,11 @@ extension ViewController: ARSCNViewDelegate{
             let scene = self.sceneView.scene as! SolarSystem
             
             // check user change paramters with voice
-            self.checkVoiceCommand(cur_scene: scene)
+            // if audio recognition was ended
+            if(!self.recognizer.audioEngine.isRunning){
+                self.checkVoiceCommand(cur_scene: scene)
+            }
+            
             
             // rotate sun if we pause scene and
             // if we have found hand moving

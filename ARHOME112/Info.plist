@@ -24,14 +24,14 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>needs camera access</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>needs microphone access</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>This application use speech recognition</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>This application use speech recognition</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>needs microphone access</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

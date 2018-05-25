@@ -39,7 +39,7 @@ struct BodyParameters{
     
     mutating func setStaticParameters(names: [String:String]){
         for name in names{
-            var new_geom = self.values[name.key]?.geometry as! SCNText
+            let new_geom = self.values[name.key]?.geometry as! SCNText
             new_geom.string = name.value
         }
     }
@@ -56,7 +56,7 @@ class SkyBody: SCNNode{
     var angle_speed: Float!
     var velocity: Float!
     
-    // graphic parameters
+    // graphic parameters and body node
     var parameters: BodyParameters!
     var body: SCNNode!
     
@@ -137,10 +137,8 @@ class SkyBody: SCNNode{
     
     // this function turn on/off
     // gui elements such as title, speed ...
-    func setGuiOptions(options: [String:Bool]){
-        for option in options {
-            self.parameters.values[option.key]?.isHidden = option.value
-        }
+    func setGuiOption(key: String, value: Bool){
+        self.parameters.values[key]?.isHidden = value
     }
     
     func addMaterial(materialName material: String) {

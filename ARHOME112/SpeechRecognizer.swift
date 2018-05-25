@@ -38,18 +38,16 @@ class SpeechRecognizer: NSObject, SFSpeechRecognizerDelegate {
         guard let recognitionRequest = self.recognitionRequest else {
             fatalError("Unable to create recognition request")
         }
-        
         recognitionTask = speechRecognizer.recognitionTask(with: (recognitionRequest), resultHandler: {result, error in
             
             var isFinal = false
             
-            if let result = result {
-                isFinal = result.isFinal
-                self.word = self.getLastResult(results: result.bestTranscription)
-            }
+            guard let result = result else { return }
+            isFinal = result.isFinal
+            self.word = self.getLastResult(results: result.bestTranscription)
+            print(self.word)
             
             if error != nil || isFinal || self.word.count > 0{
-                self.audioEngine.stop()
                 self.recognitionRequest?.endAudio()
                 
                 self.audioEngine.stop()

@@ -21,7 +21,7 @@ class SolarSystem: SCNScene{
     var scale: Float! = 1.5e11
     
     // GUI on/off parameters
-    var guiOptions: [String:Bool] = ["Name":true]
+    var guiOptions: [String:Bool] = ["Name":false]
     
     
     convenience init(sunPosition posVec: SCNVector3){
@@ -105,9 +105,6 @@ class SolarSystem: SCNScene{
             // set plane material
             self.planets[planetName]!.addMaterial(materialName: material)
             
-            // set gui parameters
-            self.planets[planetName]!.setGuiOptions(options: guiOptions)
-            
             // add plane to solar system
             self.sun.body.addChildNode(self.planets[planetName]!)
             
@@ -133,9 +130,7 @@ class SolarSystem: SCNScene{
             // rotate around sun and rotate round self axis
             planet.value.rotationStep(position: planet.value.position, scale: self.scale)
             planet.value.selfAxisRotationStep()
-            
-            // set gui parameters
-            planet.value.setGuiOptions(options: guiOptions)
+
         }
     }
         
@@ -147,8 +142,15 @@ class SolarSystem: SCNScene{
         }
     }
     
+    
+    // update and set gui options
     func updateGuiOptions(key: String){
         self.guiOptions[key] = !(self.guiOptions[key]!)
+        print(self.guiOptions[key])
+            
+        for planet in planets{
+            planet.value.setGuiOption(key: key, value: self.guiOptions[key]!)
+        }
     }
     
 }
